@@ -1,0 +1,680 @@
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Alan VITE — Galería de Arte Contemporáneo</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        gallery: {
+                            50: '#fbfbfb',
+                            100: '#f4f4f5',
+                            800: '#18181b',
+                            900: '#09090b',
+                            accent: '#8b0000' // Rojo quemado/sangre sutil para acentuar el estilo crudo
+                        }
+                    },
+                    fontFamily: {
+                        serif: ['Playfair Display', 'Georgia', 'serif'],
+                        sans: ['Inter', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #ffffff;
+            color: #09090b;
+        }
+        h1, h2, h3, .font-serif {
+            font-family: 'Playfair Display', serif;
+        }
+        .img-zoom {
+            transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .img-container:hover .img-zoom {
+            transform: scale(1.04);
+        }
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #ffffff;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #d4d4d8;
+            border-radius: 3px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #a1a1aa;
+        }
+    </style>
+</head>
+<body class="bg-white text-zinc-900 antialiased selection:bg-zinc-900 selection:text-white">
+
+    <header class="fixed top-0 left-0 w-full bg-white/90 backdrop-blur-md z-40 border-b border-zinc-100 transition-all duration-300">
+        <div class="max-w-7xl mx-auto px-6 md:px-12 h-20 flex items-center justify-between">
+            <!-- Brand Logo / Name -->
+            <a href="#inicio" class="text-xl md:text-2xl tracking-wider uppercase font-serif font-light transition-opacity hover:opacity-70">
+                Alan <span class="font-bold text-2xl md:text-3xl tracking-tight">VITE</span>
+            </a>
+
+            <!-- Desktop Navigation -->
+            <nav class="hidden md:flex space-x-10 text-xs tracking-widest uppercase font-medium text-zinc-600">
+                <a href="#inicio" class="hover:text-zinc-900 transition-colors py-1 relative group">
+                    Inicio
+                    <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-zinc-900 transition-all duration-300 group-hover:w-full"></span>
+                </a>
+                <a href="#vite" class="hover:text-zinc-900 transition-colors py-1 relative group">
+                    Vite
+                    <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-zinc-900 transition-all duration-300 group-hover:w-full"></span>
+                </a>
+                <a href="#portafolio" class="hover:text-zinc-900 transition-colors py-1 relative group">
+                    Portafolio
+                    <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-zinc-900 transition-all duration-300 group-hover:w-full"></span>
+                </a>
+                <a href="#prints" class="hover:text-zinc-900 transition-colors py-1 relative group">
+                    Prints
+                    <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-zinc-900 transition-all duration-300 group-hover:w-full"></span>
+                </a>
+                <a href="#contacto" class="hover:text-zinc-900 transition-colors py-1 relative group">
+                    Contacto
+                    <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-zinc-900 transition-all duration-300 group-hover:w-full"></span>
+                </a>
+            </nav>
+
+            <!-- Mobile Menu Toggle Button -->
+            <button id="menu-btn" class="md:hidden text-zinc-900 focus:outline-none p-2" aria-label="Abrir menú">
+                <i data-lucide="menu" class="w-6 h-6"></i>
+            </button>
+        </div>
+
+        <!-- Mobile Menu Overlay -->
+        <div id="mobile-menu" class="hidden md:hidden bg-white border-b border-zinc-200 px-6 py-6 flex flex-col space-y-4 text-sm tracking-widest uppercase font-medium text-zinc-700">
+            <a href="#inicio" class="mobile-link hover:text-zinc-900 py-1 border-b border-zinc-100">Inicio</a>
+            <a href="#vite" class="mobile-link hover:text-zinc-900 py-1 border-b border-zinc-100">Vite</a>
+            <a href="#portafolio" class="mobile-link hover:text-zinc-900 py-1 border-b border-zinc-100">Portafolio</a>
+            <a href="#prints" class="mobile-link hover:text-zinc-900 py-1 border-b border-zinc-100">Prints</a>
+            <a href="#contacto" class="mobile-link hover:text-zinc-900 py-1">Contacto</a>
+        </div>
+    </header>
+
+    <main class="pt-20">
+
+        <section id="inicio" class="min-h-[calc(100vh-5rem)] flex items-center justify-center py-16 px-6 md:px-12 bg-white">
+            <div class="max-w-7xl w-full mx-auto">
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+                    
+                    <!-- Lado Izquierdo: Título y Semblanza (Máximo la mitad del espacio) -->
+                    <div class="space-y-8 max-w-xl">
+                        <div class="space-y-2">
+                            <span class="text-xs uppercase tracking-[0.3em] text-zinc-400 font-semibold block">Artista Visual & Pintor</span>
+                            <h1 class="text-5xl sm:text-6xl md:text-7xl font-serif font-light text-zinc-900 tracking-tight leading-none">
+                                Alan <span class="font-bold text-6xl sm:text-7xl md:text-8xl inline-block text-zinc-950">VITE</span>
+                            </h1>
+                        </div>
+
+                        <!-- Cuadro de texto con la semblanza oficial -->
+                        <div class="relative pl-6 border-l-2 border-zinc-900 py-2 my-6">
+                            <p class="text-base sm:text-lg text-zinc-700 font-light leading-relaxed">
+                                "Alan Vite Torres es un pintor y artista visual en formación con un estilo crudo en la pintura que busca mostrar su propia version de la realidad violenta. Ha participado en diferentes exposiciones colectivas."
+                            </p>
+                        </div>
+
+                        <!-- Acciones directas -->
+                        <div class="pt-4 flex flex-wrap gap-4">
+                            <a href="#portafolio" class="px-8 py-3.5 bg-zinc-900 text-white text-xs uppercase tracking-widest hover:bg-zinc-800 transition-all shadow-sm rounded-sm inline-flex items-center space-x-2">
+                                <span>Explorar Galería</span>
+                                <i data-lucide="arrow-right" class="w-4 h-4"></i>
+                            </a>
+                            <a href="#contacto" class="px-8 py-3.5 border border-zinc-300 text-zinc-800 text-xs uppercase tracking-widest hover:bg-zinc-50 hover:border-zinc-900 transition-all rounded-sm">
+                                Consultar Obra
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Lado Derecho: Imagen destacada inicial -->
+                    <div class="relative w-full aspect-[4/5] sm:aspect-[3/4] lg:aspect-[4/5] bg-zinc-100 overflow-hidden rounded-sm group shadow-xl">
+                        <img 
+                            src="https://images.unsplash.com/photo-1579783902614-a3fb3927b675?auto=format&fit=crop&w=1200&q=80" 
+                            alt="Alan Vite - Obra Principal" 
+                            class="w-full h-full object-cover img-zoom"
+                            onerror="this.src='https://placehold.co/800x1000/18181b/ffffff?text=Alan+Vite+Art'"
+                        />
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-6">
+                            <div class="text-white">
+                                <p class="text-xs uppercase tracking-widest opacity-80">Obra Destacada</p>
+                                <p class="font-serif text-lg font-medium">Fractura Urbana (2024)</p>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <section id="vite" class="py-24 px-6 md:px-12 bg-zinc-50 border-y border-zinc-200">
+            <div class="max-w-5xl mx-auto space-y-16">
+                <div class="text-center space-y-4">
+                    <h2 class="text-xs uppercase tracking-[0.3em] text-zinc-500 font-semibold">El Concepto</h2>
+                    <h3 class="text-3xl md:text-5xl font-serif font-light text-zinc-900">Sobre el Artista & Estética Cruda</h3>
+                    <div class="w-12 h-0.5 bg-zinc-900 mx-auto mt-6"></div>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-12 text-zinc-700 leading-relaxed font-light">
+                    <div class="space-y-4">
+                        <h4 class="font-serif text-xl font-normal text-zinc-900">La Realidad Expuesta</h4>
+                        <p class="text-justify">
+                            El trabajo de Alan Vite Torres trasciende la representación tradicional para adentrarse en la crudeza del entorno social e individual. A través de trazos viscerales y una paleta expresiva, Vite confronta al espectador con la violencia implícita y explícita del contexto contemporáneo.
+                        </p>
+                        <p class="text-justify">
+                            Su pintura no busca complacer estéticamente, sino detonar una reflexión sobre las tensiones, el dolor y la memoria colectiva que moldean nuestra percepción cotidiana.
+                        </p>
+                    </div>
+                    <div class="space-y-4">
+                        <h4 class="font-serif text-xl font-normal text-zinc-900">Técnica y Formación</h4>
+                        <p class="text-justify">
+                            En constante evolución y formación artística, explora técnicas mixtas que combinan el óleo, el acrílico, pigmentos industriales y empastes densos que otorgan textura tridimensional a la tela.
+                        </p>
+                        <p class="text-justify">
+                            Su participación en diversas exposiciones colectivas ha posicionado su propuesta como una voz emergente singular, caracterizada por la honestidad del trazo y la intensidad temática.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Cita o Manifiesto -->
+                <div class="bg-white p-8 md:p-12 border border-zinc-200 shadow-sm text-center max-w-3xl mx-auto rounded-sm">
+                    <blockquote class="font-serif text-xl md:text-2xl italic text-zinc-800">
+                        "La pintura es el único lenguaje capaz de sostener la mirada ante la violencia sin pestañear, convirtiendo el caos en un testimonio indeleble."
+                    </blockquote>
+                    <p class="mt-4 text-xs uppercase tracking-widest text-zinc-500">— Alan Vite Torres</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="portafolio" class="py-24 px-6 md:px-12 bg-white">
+            <div class="max-w-7xl mx-auto space-y-12">
+                
+                <div class="flex flex-col md:flex-row md:items-end justify-between gap-6 border-b border-zinc-200 pb-8">
+                    <div>
+                        <span class="text-xs uppercase tracking-[0.3em] text-zinc-400 font-semibold block">Catálogo de Obras</span>
+                        <h2 class="text-3xl md:text-5xl font-serif font-light text-zinc-900">Portafolio</h2>
+                    </div>
+
+                    <!-- Filtros de Categorías -->
+                    <div class="flex flex-wrap gap-2 text-xs uppercase tracking-wider font-medium" id="filter-buttons">
+                        <button data-filter="all" class="filter-btn px-4 py-2 bg-zinc-900 text-white rounded-sm transition-all">Todas</button>
+                        <button data-filter="oleo" class="filter-btn px-4 py-2 bg-zinc-100 text-zinc-700 hover:bg-zinc-200 rounded-sm transition-all">Óleo</button>
+                        <button data-filter="mixta" class="filter-btn px-4 py-2 bg-zinc-100 text-zinc-700 hover:bg-zinc-200 rounded-sm transition-all">Técnica Mixta</button>
+                        <button data-filter="dibujo" class="filter-btn px-4 py-2 bg-zinc-100 text-zinc-700 hover:bg-zinc-200 rounded-sm transition-all">Grabado & Dibujo</button>
+                    </div>
+                </div>
+
+                <!-- Grilla del Portafolio -->
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8" id="portfolio-grid">
+                    
+                    <!-- Obra 1 -->
+                    <div class="portfolio-item oleo group cursor-pointer" onclick="openLightbox(0)">
+                        <div class="relative aspect-[3/4] bg-zinc-100 overflow-hidden mb-4 img-container rounded-sm">
+                            <img src="https://images.unsplash.com/photo-1579783900882-c0d3dad7b119?auto=format&fit=crop&w=800&q=80" alt="Erosión del Silencio" class="w-full h-full object-cover img-zoom" onerror="this.src='https://placehold.co/600x800/18181b/ffffff?text=Obra+1'">
+                            <div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                                <span class="text-white text-xs uppercase tracking-widest border border-white/80 px-4 py-2">Ver Detalles</span>
+                            </div>
+                        </div>
+                        <h3 class="font-serif text-lg font-medium text-zinc-900 group-hover:text-zinc-600 transition-colors">Erosión del Silencio</h3>
+                        <p class="text-xs text-zinc-500 font-light mt-1">Óleo sobre lienzo — 120 x 150 cm (2024)</p>
+                    </div>
+
+                    <!-- Obra 2 -->
+                    <div class="portfolio-item mixta group cursor-pointer" onclick="openLightbox(1)">
+                        <div class="relative aspect-[3/4] bg-zinc-100 overflow-hidden mb-4 img-container rounded-sm">
+                            <img src="https://images.unsplash.com/photo-1541701494587-cb58502866ab?auto=format&fit=crop&w=800&q=80" alt="Cicatriz Urbana I" class="w-full h-full object-cover img-zoom" onerror="this.src='https://placehold.co/600x800/18181b/ffffff?text=Obra+2'">
+                            <div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                                <span class="text-white text-xs uppercase tracking-widest border border-white/80 px-4 py-2">Ver Detalles</span>
+                            </div>
+                        </div>
+                        <h3 class="font-serif text-lg font-medium text-zinc-900 group-hover:text-zinc-600 transition-colors">Cicatriz Urbana I</h3>
+                        <p class="text-xs text-zinc-500 font-light mt-1">Técnica mixta y pigmentos — 100 x 120 cm (2023)</p>
+                    </div>
+
+                    <!-- Obra 3 -->
+                    <div class="portfolio-item dibujo group cursor-pointer" onclick="openLightbox(2)">
+                        <div class="relative aspect-[3/4] bg-zinc-100 overflow-hidden mb-4 img-container rounded-sm">
+                            <img src="https://images.unsplash.com/photo-1578926377703-68f51092a628?auto=format&fit=crop&w=800&q=80" alt="Anatomía de la Tensión" class="w-full h-full object-cover img-zoom" onerror="this.src='https://placehold.co/600x800/18181b/ffffff?text=Obra+3'">
+                            <div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                                <span class="text-white text-xs uppercase tracking-widest border border-white/80 px-4 py-2">Ver Detalles</span>
+                            </div>
+                        </div>
+                        <h3 class="font-serif text-lg font-medium text-zinc-900 group-hover:text-zinc-600 transition-colors">Anatomía de la Tensión</h3>
+                        <p class="text-xs text-zinc-500 font-light mt-1">Carboncillo y tinta sobre papel — 70 x 100 cm (2024)</p>
+                    </div>
+
+                    <!-- Obra 4 -->
+                    <div class="portfolio-item oleo group cursor-pointer" onclick="openLightbox(3)">
+                        <div class="relative aspect-[3/4] bg-zinc-100 overflow-hidden mb-4 img-container rounded-sm">
+                            <img src="https://images.unsplash.com/photo-1579783902614-a3fb3927b675?auto=format&fit=crop&w=800&q=80" alt="Fractura Urbana" class="w-full h-full object-cover img-zoom" onerror="this.src='https://placehold.co/600x800/18181b/ffffff?text=Obra+4'">
+                            <div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                                <span class="text-white text-xs uppercase tracking-widest border border-white/80 px-4 py-2">Ver Detalles</span>
+                            </div>
+                        </div>
+                        <h3 class="font-serif text-lg font-medium text-zinc-900 group-hover:text-zinc-600 transition-colors">Fractura Urbana</h3>
+                        <p class="text-xs text-zinc-500 font-light mt-1">Óleo sobre lino — 150 x 180 cm (2024)</p>
+                    </div>
+
+                    <!-- Obra 5 -->
+                    <div class="portfolio-item mixta group cursor-pointer" onclick="openLightbox(4)">
+                        <div class="relative aspect-[3/4] bg-zinc-100 overflow-hidden mb-4 img-container rounded-sm">
+                            <img src="https://images.unsplash.com/photo-1582562124811-c09040d0a901?auto=format&fit=crop&w=800&q=80" alt="Testigo mudo" class="w-full h-full object-cover img-zoom" onerror="this.src='https://placehold.co/600x800/18181b/ffffff?text=Obra+5'">
+                            <div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                                <span class="text-white text-xs uppercase tracking-widest border border-white/80 px-4 py-2">Ver Detalles</span>
+                            </div>
+                        </div>
+                        <h3 class="font-serif text-lg font-medium text-zinc-900 group-hover:text-zinc-600 transition-colors">Testigo Mudo</h3>
+                        <p class="text-xs text-zinc-500 font-light mt-1">Técnica mixta sobre madera — 90 x 90 cm (2023)</p>
+                    </div>
+
+                    <!-- Obra 6 -->
+                    <div class="portfolio-item dibujo group cursor-pointer" onclick="openLightbox(5)">
+                        <div class="relative aspect-[3/4] bg-zinc-100 overflow-hidden mb-4 img-container rounded-sm">
+                            <img src="https://images.unsplash.com/photo-1607604276583-eef5d076aa5f?auto=format&fit=crop&w=800&q=80" alt="Grito Contenido" class="w-full h-full object-cover img-zoom" onerror="this.src='https://placehold.co/600x800/18181b/ffffff?text=Obra+6'">
+                            <div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                                <span class="text-white text-xs uppercase tracking-widest border border-white/80 px-4 py-2">Ver Detalles</span>
+                            </div>
+                        </div>
+                        <h3 class="font-serif text-lg font-medium text-zinc-900 group-hover:text-zinc-600 transition-colors">Grito Contenido</h3>
+                        <p class="text-xs text-zinc-500 font-light mt-1">Grabado en aguafuerte — 50 x 70 cm (2024)</p>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <section id="prints" class="py-24 px-6 md:px-12 bg-zinc-50 border-t border-zinc-200">
+            <div class="max-w-7xl mx-auto space-y-12">
+                <div class="text-center max-w-2xl mx-auto space-y-4">
+                    <span class="text-xs uppercase tracking-[0.3em] text-zinc-500 font-semibold">Ediciones Limitadas</span>
+                    <h2 class="text-3xl md:text-5xl font-serif font-light text-zinc-900">Prints Disponibles</h2>
+                    <p class="text-zinc-600 font-light text-sm">
+                        Impresiones de alta calidad fine art (Giclée) firmadas y numeradas a mano por el artista. Ediciones exclusivas de 25 ejemplares.
+                    </p>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    
+                    <!-- Print 1 -->
+                    <div class="bg-white p-6 border border-zinc-200 rounded-sm space-y-6 flex flex-col justify-between hover:shadow-md transition-shadow">
+                        <div class="space-y-4">
+                            <div class="aspect-[4/5] bg-zinc-100 overflow-hidden relative">
+                                <img src="https://images.unsplash.com/photo-1579783900882-c0d3dad7b119?auto=format&fit=crop&w=600&q=80" alt="Print Erosión" class="w-full h-full object-cover">
+                                <span class="absolute top-3 right-3 bg-zinc-900 text-white text-[10px] tracking-widest uppercase px-2 py-1">Edición 15/25</span>
+                            </div>
+                            <div>
+                                <h3 class="font-serif text-xl text-zinc-900">Print: Erosión del Silencio</h3>
+                                <p class="text-xs text-zinc-500 mt-1">Papel Cotton Rag 310g • 50 x 70 cm</p>
+                            </div>
+                        </div>
+                        <div class="pt-4 border-t border-zinc-100 flex items-center justify-between">
+                            <span class="font-serif text-lg text-zinc-900">$1,800 MXN</span>
+                            <button onclick="orderPrint('Erosión del Silencio')" class="px-4 py-2 bg-zinc-900 text-white text-xs uppercase tracking-wider hover:bg-zinc-800 transition-colors rounded-sm">
+                                Encargar
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Print 2 -->
+                    <div class="bg-white p-6 border border-zinc-200 rounded-sm space-y-6 flex flex-col justify-between hover:shadow-md transition-shadow">
+                        <div class="space-y-4">
+                            <div class="aspect-[4/5] bg-zinc-100 overflow-hidden relative">
+                                <img src="https://images.unsplash.com/photo-1578926377703-68f51092a628?auto=format&fit=crop&w=600&q=80" alt="Print Anatomía" class="w-full h-full object-cover">
+                                <span class="absolute top-3 right-3 bg-zinc-900 text-white text-[10px] tracking-widest uppercase px-2 py-1">Edición 08/25</span>
+                            </div>
+                            <div>
+                                <h3 class="font-serif text-xl text-zinc-900">Print: Anatomía de la Tensión</h3>
+                                <p class="text-xs text-zinc-500 mt-1">Papel Hahnemühle Museum Etching • 40 x 60 cm</p>
+                            </div>
+                        </div>
+                        <div class="pt-4 border-t border-zinc-100 flex items-center justify-between">
+                            <span class="font-serif text-lg text-zinc-900">$1,500 MXN</span>
+                            <button onclick="orderPrint('Anatomía de la Tensión')" class="px-4 py-2 bg-zinc-900 text-white text-xs uppercase tracking-wider hover:bg-zinc-800 transition-colors rounded-sm">
+                                Encargar
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Print 3 -->
+                    <div class="bg-white p-6 border border-zinc-200 rounded-sm space-y-6 flex flex-col justify-between hover:shadow-md transition-shadow">
+                        <div class="space-y-4">
+                            <div class="aspect-[4/5] bg-zinc-100 overflow-hidden relative">
+                                <img src="https://images.unsplash.com/photo-1579783902614-a3fb3927b675?auto=format&fit=crop&w=600&q=80" alt="Print Fractura" class="w-full h-full object-cover">
+                                <span class="absolute top-3 right-3 bg-zinc-900 text-white text-[10px] tracking-widest uppercase px-2 py-1">Edición 03/25</span>
+                            </div>
+                            <div>
+                                <h3 class="font-serif text-xl text-zinc-900">Print: Fractura Urbana</h3>
+                                <p class="text-xs text-zinc-500 mt-1">Papel Cotton Rag 310g • 60 x 80 cm</p>
+                            </div>
+                        </div>
+                        <div class="pt-4 border-t border-zinc-100 flex items-center justify-between">
+                            <span class="font-serif text-lg text-zinc-900">$2,200 MXN</span>
+                            <button onclick="orderPrint('Fractura Urbana')" class="px-4 py-2 bg-zinc-900 text-white text-xs uppercase tracking-wider hover:bg-zinc-800 transition-colors rounded-sm">
+                                Encargar
+                            </button>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <section id="contacto" class="py-24 px-6 md:px-12 bg-white">
+            <div class="max-w-5xl mx-auto space-y-16">
+                
+                <div class="text-center space-y-4">
+                    <span class="text-xs uppercase tracking-[0.3em] text-zinc-400 font-semibold">Adquisiciones & Colaboraciones</span>
+                    <h2 class="text-3xl md:text-5xl font-serif font-light text-zinc-900">Contacto</h2>
+                    <p class="text-zinc-600 font-light text-sm max-w-lg mx-auto">
+                        Para disponibilidad de obras originales, comisiones particulares, encargo de prints o invitaciones a exposiciones colectivas.
+                    </p>
+                </div>
+
+                <div class="grid grid-cols-1 lg:grid-cols-3 gap-12">
+                    
+                    <!-- Información de Contacto -->
+                    <div class="space-y-8 lg:col-span-1">
+                        <div class="space-y-3">
+                            <span class="text-xs uppercase tracking-widest text-zinc-400 font-semibold block">Ubicación</span>
+                            <p class="text-zinc-800 text-sm font-light">Ciudad de México / Estado de México</p>
+                        </div>
+
+                        <div class="space-y-3">
+                            <span class="text-xs uppercase tracking-widest text-zinc-400 font-semibold block">Correo Electrónico</span>
+                            <a href="mailto:contacto@alanviteart.com" class="text-zinc-900 hover:text-zinc-600 transition-colors text-sm underline underline-offset-4">contacto@alanviteart.com</a>
+                        </div>
+
+                        <div class="space-y-3">
+                            <span class="text-xs uppercase tracking-widest text-zinc-400 font-semibold block">Redes Sociales</span>
+                            <div class="flex space-x-4 text-zinc-700">
+                                <a href="#" class="p-2 border border-zinc-200 hover:border-zinc-900 transition-colors rounded-sm" aria-label="Instagram">
+                                    <i data-lucide="instagram" class="w-5 h-5"></i>
+                                </a>
+                                <a href="#" class="p-2 border border-zinc-200 hover:border-zinc-900 transition-colors rounded-sm" aria-label="Facebook">
+                                    <i data-lucide="facebook" class="w-5 h-5"></i>
+                                </a>
+                                <a href="#" class="p-2 border border-zinc-200 hover:border-zinc-900 transition-colors rounded-sm" aria-label="Mail">
+                                    <i data-lucide="mail" class="w-5 h-5"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Formulario de Contacto -->
+                    <div class="lg:col-span-2">
+                        <form id="contact-form" onsubmit="handleFormSubmit(event)" class="space-y-6">
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                                <div class="space-y-2">
+                                    <label for="name" class="text-xs uppercase tracking-wider text-zinc-600 font-medium block">Nombre Completo *</label>
+                                    <input type="text" id="name" required class="w-full px-4 py-3 border border-zinc-300 rounded-sm focus:outline-none focus:border-zinc-900 text-sm transition-colors" placeholder="Tu nombre">
+                                </div>
+                                <div class="space-y-2">
+                                    <label for="email" class="text-xs uppercase tracking-wider text-zinc-600 font-medium block">Correo Electrónico *</label>
+                                    <input type="email" id="email" required class="w-full px-4 py-3 border border-zinc-300 rounded-sm focus:outline-none focus:border-zinc-900 text-sm transition-colors" placeholder="correo@ejemplo.com">
+                                </div>
+                            </div>
+
+                            <div class="space-y-2">
+                                <label for="subject" class="text-xs uppercase tracking-wider text-zinc-600 font-medium block">Asunto</label>
+                                <select id="subject" class="w-full px-4 py-3 border border-zinc-300 rounded-sm focus:outline-none focus:border-zinc-900 text-sm bg-white text-zinc-700 transition-colors">
+                                    <option value="Adquisición de Obra Original">Adquisición de Obra Original</option>
+                                    <option value="Solicitud de Print">Solicitud de Print</option>
+                                    <option value="Invitación a Exposición">Invitación a Exposición Colectiva</option>
+                                    <option value="Prensa / Entrevista">Prensa / Comunicación</option>
+                                    <option value="Otro">Otro asunto</option>
+                                </select>
+                            </div>
+
+                            <div class="space-y-2">
+                                <label for="message" class="text-xs uppercase tracking-wider text-zinc-600 font-medium block">Mensaje *</label>
+                                <textarea id="message" rows="5" required class="w-full px-4 py-3 border border-zinc-300 rounded-sm focus:outline-none focus:border-zinc-900 text-sm transition-colors" placeholder="Escribe tu consulta o mensaje aquí..."></textarea>
+                            </div>
+
+                            <button type="submit" class="w-full sm:w-auto px-8 py-3.5 bg-zinc-900 text-white text-xs uppercase tracking-widest hover:bg-zinc-800 transition-colors rounded-sm">
+                                Enviar Mensaje
+                            </button>
+                        </form>
+                    </div>
+
+                </div>
+
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="bg-zinc-950 text-white py-12 px-6 md:px-12 border-t border-zinc-800">
+        <div class="max-w-7xl mx-auto flex flex-col sm:flex-row justify-between items-center gap-6">
+            <div class="text-center sm:text-left">
+                <span class="font-serif text-lg tracking-wider uppercase">Alan <span class="font-bold">VITE</span></span>
+                <p class="text-xs text-zinc-400 mt-1">© <span id="year"></span> Alan Vite Torres. Todos los derechos reservados.</p>
+            </div>
+            <div class="text-xs text-zinc-500 uppercase tracking-widest">
+                Galería & Arte Visual Contemporáneo
+            </div>
+        </div>
+    </footer>
+
+    <div id="lightbox" class="fixed inset-0 bg-black/90 z-50 hidden flex items-center justify-center p-4 md:p-8 backdrop-blur-sm transition-opacity duration-300">
+        <button onclick="closeLightbox()" class="absolute top-6 right-6 text-white/80 hover:text-white p-2" aria-label="Cerrar modal">
+            <i data-lucide="x" class="w-8 h-8"></i>
+        </button>
+        
+        <div class="max-w-5xl w-full bg-zinc-900 border border-zinc-800 text-white grid grid-cols-1 md:grid-cols-3 overflow-hidden rounded-sm shadow-2xl max-h-[90vh]">
+            <div class="md:col-span-2 bg-black flex items-center justify-center overflow-hidden max-h-[60vh] md:max-h-[80vh]">
+                <img id="lightbox-img" src="" alt="" class="max-h-full max-w-full object-contain">
+            </div>
+            <div class="p-6 md:p-8 flex flex-col justify-between space-y-6 overflow-y-auto">
+                <div class="space-y-4">
+                    <span class="text-[10px] uppercase tracking-[0.2em] text-zinc-400 font-semibold block" id="lightbox-category">Ficha Técnica</span>
+                    <h3 class="text-2xl font-serif" id="lightbox-title">Título de la Obra</h3>
+                    <div class="space-y-2 text-xs text-zinc-300 font-light leading-relaxed border-t border-b border-zinc-800 py-4">
+                        <p><strong class="font-medium text-zinc-100">Técnica:</strong> <span id="lightbox-tech">-</span></p>
+                        <p><strong class="font-medium text-zinc-100">Dimensiones:</strong> <span id="lightbox-dims">-</span></p>
+                        <p><strong class="font-medium text-zinc-100">Año:</strong> <span id="lightbox-year">-</span></p>
+                    </div>
+                    <p class="text-xs text-zinc-400 italic" id="lightbox-desc">
+                        "Exploración de la expresividad cruda a través de la saturación pictórica."
+                    </p>
+                </div>
+
+                <a href="#contacto" onclick="closeLightbox();" class="block text-center py-3 bg-white text-zinc-900 text-xs uppercase tracking-widest hover:bg-zinc-200 transition-colors rounded-sm font-medium">
+                    Consultar por esta Obra
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <div id="toast-modal" class="fixed bottom-6 right-6 bg-zinc-900 text-white px-6 py-4 rounded-sm shadow-2xl z-50 transform translate-y-24 opacity-0 transition-all duration-300 flex items-center space-x-3 border border-zinc-700">
+        <i data-lucide="check-circle-2" class="w-5 h-5 text-emerald-400"></i>
+        <span id="toast-message" class="text-xs uppercase tracking-wider font-medium">Mensaje enviado</span>
+    </div>
+
+    <script>
+        // Inicializar Lucide Icons
+        lucide.createIcons();
+
+        // Año en Footer
+        document.getElementById('year').textContent = new Date().getFullYear();
+
+        // Menú Mobile Toggle
+        const menuBtn = document.getElementById('menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const mobileLinks = document.querySelectorAll('.mobile-link');
+
+        menuBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        mobileLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.add('hidden');
+            });
+        });
+
+        // Base de Datos del Portafolio
+        const portfolioData = [
+            {
+                title: "Erosión del Silencio",
+                category: "Óleo",
+                tech: "Óleo sobre lienzo",
+                dims: "120 x 150 cm",
+                year: "2024",
+                src: "https://images.unsplash.com/photo-1579783900882-c0d3dad7b119?auto=format&fit=crop&w=1200&q=80",
+                desc: "Una reflexión profunda sobre la violencia sistemática que se acumula en el silencio cotidiano."
+            },
+            {
+                title: "Cicatriz Urbana I",
+                category: "Técnica Mixta",
+                tech: "Técnica mixta, pigmentos industriales y acrílico",
+                dims: "100 x 120 cm",
+                year: "2023",
+                src: "https://images.unsplash.com/photo-1541701494587-cb58502866ab?auto=format&fit=crop&w=1200&q=80",
+                desc: "Texturas superpuestas que evocan la degradación y resiliencia de la infraestructura urbana."
+            },
+            {
+                title: "Anatomía de la Tensión",
+                category: "Grabado & Dibujo",
+                tech: "Carboncillo, grafito y tinta sobre papel de algodón",
+                dims: "70 x 100 cm",
+                year: "2024",
+                src: "https://images.unsplash.com/photo-1578926377703-68f51092a628?auto=format&fit=crop&w=1200&q=80",
+                desc: "Trazos directos e impulsivos que registran el movimiento y la carga corporal."
+            },
+            {
+                title: "Fractura Urbana",
+                category: "Óleo",
+                tech: "Óleo sobre lino",
+                dims: "150 x 180 cm",
+                year: "2024",
+                src: "https://images.unsplash.com/photo-1579783902614-a3fb3927b675?auto=format&fit=crop&w=1200&q=80",
+                desc: "Gran formato centrado en la desintegración del espacio habitado y el caos estético."
+            },
+            {
+                title: "Testigo Mudo",
+                category: "Técnica Mixta",
+                tech: "Técnica mixta sobre panel de madera",
+                dims: "90 x 90 cm",
+                year: "2023",
+                src: "https://images.unsplash.com/photo-1582562124811-c09040d0a901?auto=format&fit=crop&w=1200&q=80",
+                desc: "Composición con elementos de desgaste que confrontan la apatía del espectador."
+            },
+            {
+                title: "Grito Contenido",
+                category: "Grabado & Dibujo",
+                tech: "Grabado en aguafuerte e intaglio",
+                dims: "50 x 70 cm",
+                year: "2024",
+                src: "https://images.unsplash.com/photo-1607604276583-eef5d076aa5f?auto=format&fit=crop&w=1200&q=80",
+                desc: "Serie gráfica enfocada en las manifestaciones emocionales retenidas."
+            }
+        ];
+
+        // Lightbox Functions
+        function openLightbox(index) {
+            const item = portfolioData[index];
+            if (!item) return;
+
+            document.getElementById('lightbox-img').src = item.src;
+            document.getElementById('lightbox-title').textContent = item.title;
+            document.getElementById('lightbox-category').textContent = item.category;
+            document.getElementById('lightbox-tech').textContent = item.tech;
+            document.getElementById('lightbox-dims').textContent = item.dims;
+            document.getElementById('lightbox-year').textContent = item.year;
+            document.getElementById('lightbox-desc').textContent = `"${item.desc}"`;
+
+            const lightbox = document.getElementById('lightbox');
+            lightbox.classList.remove('hidden');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeLightbox() {
+            const lightbox = document.getElementById('lightbox');
+            lightbox.classList.add('hidden');
+            document.body.style.overflow = 'auto';
+        }
+
+        // Filtros del Portafolio
+        const filterBtns = document.querySelectorAll('.filter-btn');
+        const items = document.querySelectorAll('.portfolio-item');
+
+        filterBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                // Actualizar estilo botones
+                filterBtns.forEach(b => {
+                    b.classList.remove('bg-zinc-900', 'text-white');
+                    b.classList.add('bg-zinc-100', 'text-zinc-700');
+                });
+                btn.classList.remove('bg-zinc-100', 'text-zinc-700');
+                btn.classList.add('bg-zinc-900', 'text-white');
+
+                const filter = btn.getAttribute('data-filter');
+
+                items.forEach(item => {
+                    if (filter === 'all' || item.classList.contains(filter)) {
+                        item.style.display = 'block';
+                    } else {
+                        item.style.display = 'none';
+                    }
+                });
+            });
+        });
+
+        // Solicitud de Prints
+        function orderPrint(printTitle) {
+            const subjectSelect = document.getElementById('subject');
+            const messageArea = document.getElementById('message');
+            
+            subjectSelect.value = 'Solicitud de Print';
+            messageArea.value = `Hola Alan, me interesa encargar la edición limitada del print: "${printTitle}". Quedo atento a la información de pago y envío.`;
+
+            // Scroll suave a formulario
+            document.getElementById('contacto').scrollIntoView({ behavior: 'smooth' });
+            showToast(`Interés en "${printTitle}" cargado en el formulario`);
+        }
+
+        // Envío de Formulario
+        function handleFormSubmit(e) {
+            e.preventDefault();
+            const form = document.getElementById('contact-form');
+            form.reset();
+            showToast('Mensaje enviado correctamente. Alan se pondrá en contacto pronto.');
+        }
+
+        // Toast Notification System
+        function showToast(message) {
+            const toast = document.getElementById('toast-modal');
+            const toastMsg = document.getElementById('toast-message');
+            
+            toastMsg.textContent = message;
+            toast.classList.remove('translate-y-24', 'opacity-0');
+            toast.classList.add('translate-y-0', 'opacity-100');
+
+            setTimeout(() => {
+                toast.classList.remove('translate-y-0', 'opacity-100');
+                toast.classList.add('translate-y-24', 'opacity-0');
+            }, 4000);
+        }
+    </script>
+</body>
+</html>

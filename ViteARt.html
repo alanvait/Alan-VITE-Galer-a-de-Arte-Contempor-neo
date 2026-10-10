@@ -150,15 +150,13 @@
                     <!-- Lado Derecho: Imagen destacada inicial -->
                     <div class="relative w-full aspect-[4/5] sm:aspect-[3/4] lg:aspect-[4/5] bg-zinc-100 overflow-hidden rounded-sm group shadow-xl">
                         <img 
-                            src="https://images.unsplash.com/photo-1579783902614-a3fb3927b675?auto=format&fit=crop&w=1200&q=80" 
+                            src="soporte1.jpg"
                             alt="Alan Vite - Obra Principal" 
                             class="w-full h-full object-cover img-zoom"
-                            onerror="this.src='https://placehold.co/800x1000/18181b/ffffff?text=Alan+Vite+Art'"
                         />
-                        <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-6">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-6">
                             <div class="text-white">
-                                <p class="text-xs uppercase tracking-widest opacity-80">Obra Destacada</p>
-                                <p class="font-serif text-lg font-medium">Fractura Urbana (2024)</p>
+                                <p class="font-serif text-lg font-medium">Herencia 1 (2026)</p>
                             </div>
                         </div>
                     </div>
@@ -230,25 +228,25 @@
                     <!-- Obra 1 -->
                     <div class="portfolio-item oleo group cursor-pointer" onclick="openLightbox(0)">
                         <div class="relative aspect-[3/4] bg-zinc-100 overflow-hidden mb-4 img-container rounded-sm">
-                            <img src="https://images.unsplash.com/photo-1579783900882-c0d3dad7b119?auto=format&fit=crop&w=800&q=80" alt="Erosión del Silencio" class="w-full h-full object-cover img-zoom" onerror="this.src='https://placehold.co/600x800/18181b/ffffff?text=Obra+1'">
+                            <img src="soporte1.jpg" alt="Herencia 1" class="w-full h-full object-cover img-zoom">
                             <div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
                                 <span class="text-white text-xs uppercase tracking-widest border border-white/80 px-4 py-2">Ver Detalles</span>
                             </div>
                         </div>
-                        <h3 class="font-serif text-lg font-medium text-zinc-900 group-hover:text-zinc-600 transition-colors">Erosión del Silencio</h3>
-                        <p class="text-xs text-zinc-500 font-light mt-1">Óleo sobre lienzo — 120 x 150 cm (2024)</p>
+                        <h3 class="font-serif text-lg font-medium text-zinc-900 group-hover:text-zinc-600 transition-colors">Herencia 1</h3>
+                        <p class="text-xs text-zinc-500 font-light mt-1">Óleo sobre lienzo — 20 x 20 cm (2026)</p>
                     </div>
 
                     <!-- Obra 2 -->
-                    <div class="portfolio-item mixta group cursor-pointer" onclick="openLightbox(1)">
+                    <div class="portfolio-item oleo group cursor-pointer" onclick="openLightbox(1)">
                         <div class="relative aspect-[3/4] bg-zinc-100 overflow-hidden mb-4 img-container rounded-sm">
-                            <img src="https://images.unsplash.com/photo-1541701494587-cb58502866ab?auto=format&fit=crop&w=800&q=80" alt="Cicatriz Urbana I" class="w-full h-full object-cover img-zoom" onerror="this.src='https://placehold.co/600x800/18181b/ffffff?text=Obra+2'">
+                            <img src="soporte2.jpg" alt="Herencia 2" class="w-full h-full object-cover img-zoom">
                             <div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
                                 <span class="text-white text-xs uppercase tracking-widest border border-white/80 px-4 py-2">Ver Detalles</span>
                             </div>
                         </div>
-                        <h3 class="font-serif text-lg font-medium text-zinc-900 group-hover:text-zinc-600 transition-colors">Cicatriz Urbana I</h3>
-                        <p class="text-xs text-zinc-500 font-light mt-1">Técnica mixta y pigmentos — 100 x 120 cm (2023)</p>
+                        <h3 class="font-serif text-lg font-medium text-zinc-900 group-hover:text-zinc-600 transition-colors">Herencia 2</h3>
+                        <p class="text-xs text-zinc-500 font-light mt-1">Óleo sobre lienzo — 20 x 20 cm (2026)</p>
                     </div>
 
                     <!-- Obra 3 -->
@@ -535,22 +533,24 @@
         // Base de Datos del Portafolio
         const portfolioData = [
             {
-                title: "Erosión del Silencio",
+                title: "Herencia 1",
                 category: "Óleo",
                 tech: "Óleo sobre lienzo",
-                dims: "120 x 150 cm",
-                year: "2024",
-                src: "https://images.unsplash.com/photo-1579783900882-c0d3dad7b119?auto=format&fit=crop&w=1200&q=80",
-                desc: "Una reflexión profunda sobre la violencia sistemática que se acumula en el silencio cotidiano."
+                dims: "20 x 20 cm",
+                year: "2026",
+                src: "soporte1.jpg",
+                desc: "Primera parte del tríptico \"Herencias\" es una reflexión sobre la confrontación de las generaciones jóvenes con su contexto sociopolítico.",
+                quoteDesc: false
             },
             {
-                title: "Cicatriz Urbana I",
-                category: "Técnica Mixta",
-                tech: "Técnica mixta, pigmentos industriales y acrílico",
-                dims: "100 x 120 cm",
-                year: "2023",
-                src: "https://images.unsplash.com/photo-1541701494587-cb58502866ab?auto=format&fit=crop&w=1200&q=80",
-                desc: "Texturas superpuestas que evocan la degradación y resiliencia de la infraestructura urbana."
+                title: "Herencia 2",
+                category: "Óleo",
+                tech: "Óleo sobre lienzo",
+                dims: "20 x 20 cm",
+                year: "2026",
+                src: "soporte2.jpg",
+                desc: "Segunda parte del tríptico \"Herencias\" es una reflexión sobre la confrontación de las generaciones jóvenes con su contexto sociopolítico.",
+                quoteDesc: false
             },
             {
                 title: "Anatomía de la Tensión",
@@ -601,7 +601,7 @@
             document.getElementById('lightbox-tech').textContent = item.tech;
             document.getElementById('lightbox-dims').textContent = item.dims;
             document.getElementById('lightbox-year').textContent = item.year;
-            document.getElementById('lightbox-desc').textContent = `"${item.desc}"`;
+            document.getElementById('lightbox-desc').textContent = item.quoteDesc === false ? item.desc : `"${item.desc}"`;
 
             const lightbox = document.getElementById('lightbox');
             lightbox.classList.remove('hidden');
